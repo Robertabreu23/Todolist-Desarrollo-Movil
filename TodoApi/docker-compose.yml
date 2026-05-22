@@ -1,0 +1,17 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: todoapi:local
+    container_name: todoapi
+    user: "1000:1000"
+    ports:
+      - "5000:5000"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:5000
+      ConnectionStrings__DefaultConnection: Data Source=/data/todo.db
+    volumes:
+      - ./data:/data
+    restart: unless-stopped
