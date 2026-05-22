@@ -59,6 +59,13 @@ Manejo centralizado de errores: cómo un middleware puede capturar excepciones y
 MVVM en MAUI: cómo separar la lógica de la UI usando bindings y comandos.
 
 Evidencias
+<img width="1850" height="587" alt="Captura desde 2026-05-21 22-25-13" src="https://github.com/user-attachments/assets/77af3e03-f3b1-498c-ae6c-f63830371f8d" />
+<img width="480" height="1009" alt="Captura desde 2026-05-21 22-23-14" src="https://github.com/user-attachments/assets/4ca731c7-52fe-439f-bd3b-b572bfcfca00" />
+<img width="480" height="1009" alt="Captura desde 2026-05-21 22-22-56" src="https://github.com/user-attachments/assets/cd090cc9-c3ff-4534-8f4c-6eeed995583b" />
+<img width="480" height="1009" alt="Captura desde 2026-05-21 22-22-39" src="https://github.com/user-attachments/assets/18bb7919-03bf-451d-ab90-6945a8dd5f02" />
+<img width="480" height="1009" alt="Captura desde 2026-05-21 22-22-12" src="https://github.com/user-attachments/assets/3e24b412-c4f1-4fb3-a018-972be9cbbc31" />
+<img width="480" height="1009" alt="Captura desde 2026-05-21 22-21-28" src="https://github.com/user-attachments/assets/290f95bd-6534-4d7e-b923-d499134c9cc1" />
+
 
 
 
