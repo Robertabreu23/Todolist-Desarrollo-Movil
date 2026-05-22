@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:TodoAppClient.ViewModels"
+             xmlns:models="clr-namespace:TodoAppClient.Models"
+             x:Class="TodoAppClient.Views.TareasListaPage"
+             x:DataType="vm:TareasListaViewModel"
+             Title="Tareas">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="+ Nueva" Command="{Binding NuevaCommand}" />
+    </ContentPage.ToolbarItems>
+
+    <Grid RowDefinitions="Auto,Auto,*">
+        <ActivityIndicator Grid.Row="0"
+                           IsRunning="{Binding IsBusy}"
+                           IsVisible="{Binding IsBusy}"
+                           HorizontalOptions="Center"
+                           Margin="0,8" />
+
+        <Label Grid.Row="1"
+               Text="{Binding ErrorMessage}"
+               TextColor="Red"
+               Margin="12,4"
+               IsVisible="{Binding ErrorMessage, Converter={StaticResource StringNotNullOrEmptyConverter}, FallbackValue=false}" />
+
+        <RefreshView Grid.Row="2"
+                     IsRefreshing="{Binding IsRefreshing}"
+                     Command="{Binding RefreshCommand}">
+            <CollectionView ItemsSource="{Binding Tareas}"
+                            SelectionMode="None">
+                <CollectionView.EmptyView>
+                    <Label Text="No hay tareas. Toca + Nueva para crear una."
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           Margin="24" />
+                </CollectionView.EmptyView>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Tarea">
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItems>
+                                    <SwipeItem Text="Eliminar"
+                                               BackgroundColor="IndianRed"
+                                               Command="{Binding Source={RelativeSource AncestorType={x:Type vm:TareasListaViewModel}}, Path=DeleteCommand}"
+                                               CommandParameter="{Binding .}" />
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+
+                            <Grid Padding="12,8" ColumnDefinitions="Auto,*,Auto" ColumnSpacing="8">
+                                <CheckBox Grid.Column="0"
+                                          IsChecked="{Binding Completada, Mode=OneWay}"
+                                          VerticalOptions="Center">
+                                    <CheckBox.Behaviors>
+                                        <!-- behaviors omitted; using tap gesture below instead -->
+                                    </CheckBox.Behaviors>
+                                </CheckBox>
+
+                                <VerticalStackLayout Grid.Column="1" Spacing="2">
+                                    <Label Text="{Binding Nombre}"
+                                           FontAttributes="Bold"
+                                           FontSize="16" />
+                                    <Label Text="{Binding Descripcion}"
+                                           FontSize="13"
+                                           TextColor="Gray"
+                                           IsVisible="{Binding Descripcion, Converter={StaticResource StringNotNullOrEmptyConverter}, FallbackValue=false}" />
+                                    <Label FontSize="12" TextColor="DarkGray">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="Prioridad: " />
+                                                <Span Text="{Binding Prioridad}" />
+                                                <Span Text="   " />
+                                                <Span Text="Vence: " />
+                                                <Span Text="{Binding FechaVencimiento, StringFormat='{0:dd/MM/yyyy HH:mm}', TargetNullValue='—'}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                </VerticalStackLayout>
+
+                                <Button Grid.Column="2"
+                                        Text="Editar"
+                                        FontSize="12"
+                                        Padding="8,4"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:TareasListaViewModel}}, Path=EditarCommand}"
+                                        CommandParameter="{Binding .}" />
+
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:TareasListaViewModel}}, Path=ToggleCompletadaCommand}"
+                                        CommandParameter="{Binding .}" />
+                                </Grid.GestureRecognizers>
+                            </Grid>
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+    </Grid>
+</ContentPage>
